@@ -39,7 +39,6 @@
             this.tmpinter = new System.Windows.Forms.Label();
             this.txtReceive = new System.Windows.Forms.RichTextBox();
             this.txtlog = new System.Windows.Forms.RichTextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.genererLeRapportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +46,7 @@
             this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commissioningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lectureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,6 +95,7 @@
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(103, 22);
             this.txtPort.TabIndex = 4;
+            this.txtPort.Enter += new System.EventHandler(this.btnstart_Click);
             // 
             // label1
             // 
@@ -167,18 +168,6 @@
             this.txtlog.TabIndex = 11;
             this.txtlog.Text = "";
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionToolStripMenuItem,
-            this.modeToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1164, 28);
-            this.menuStrip1.TabIndex = 12;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // optionToolStripMenuItem
             // 
             this.optionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -193,7 +182,7 @@
             this.logToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.genererLeRapportToolStripMenuItem});
             this.logToolStripMenuItem.Name = "logToolStripMenuItem";
-            this.logToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.logToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.logToolStripMenuItem.Text = "log";
             // 
             // genererLeRapportToolStripMenuItem
@@ -206,7 +195,7 @@
             // debugToolStripMenuItem
             // 
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(135, 26);
             this.debugToolStripMenuItem.Text = "debug";
             this.debugToolStripMenuItem.Click += new System.EventHandler(this.btnDebug_Click);
             // 
@@ -222,14 +211,26 @@
             // commissioningToolStripMenuItem
             // 
             this.commissioningToolStripMenuItem.Name = "commissioningToolStripMenuItem";
-            this.commissioningToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.commissioningToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
             this.commissioningToolStripMenuItem.Text = "Commissioning";
             // 
             // lectureToolStripMenuItem
             // 
             this.lectureToolStripMenuItem.Name = "lectureToolStripMenuItem";
-            this.lectureToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.lectureToolStripMenuItem.Size = new System.Drawing.Size(194, 26);
             this.lectureToolStripMenuItem.Text = "Lecture";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionToolStripMenuItem,
+            this.modeToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1164, 28);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
             // 
             // Form1
             // 
@@ -274,7 +275,6 @@
         private System.Windows.Forms.Label tmpinter;
         private System.Windows.Forms.RichTextBox txtReceive;
         private System.Windows.Forms.RichTextBox txtlog;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem genererLeRapportToolStripMenuItem;
@@ -282,6 +282,7 @@
         private System.Windows.Forms.ToolStripMenuItem modeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem commissioningToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lectureToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 
