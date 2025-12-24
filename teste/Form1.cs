@@ -425,11 +425,22 @@ namespace teste
                 SimulateDebugProcess();
                 return;
             }
-            await RunV1_TaskGroupTestAsync(txtip.Text.Trim(), int.Parse(txtPort.Text));
 
-            LogInfo("START réel non implémenté ici (debug conseillé)");
+            // Si le port est invalide, on force 0 (ou ton port par défaut)
+            int.TryParse(txtPort.Text, out int port);
 
+            try
+            {
+                await RunV1_TaskGroupTestAsync(txtip.Text.Trim(), port);
+
+                LogInfo("VALIDATION : Trame envoyée et task terminée");
+            }
+            catch (Exception ex)
+            {
+                LogError("ERREUR : Trame non envoyée - " + ex.Message);
+            }
         }
+
 
         private void btnstop_Click(object sender, EventArgs e)
         {
@@ -438,7 +449,7 @@ namespace teste
         }
 
         // ===============================
-        // RAPPORT TXT
+        // RAP²&PORT TXT
         // ===============================
         private string BuildReportText()
         {

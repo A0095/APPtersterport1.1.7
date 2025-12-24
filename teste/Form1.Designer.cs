@@ -53,10 +53,9 @@
             // btnStart
             // 
             this.btnStart.AutoSize = true;
-            this.btnStart.Location = new System.Drawing.Point(123, 167);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStart.Location = new System.Drawing.Point(15, 136);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(103, 30);
+            this.btnStart.Size = new System.Drawing.Size(93, 25);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -68,10 +67,9 @@
             this.btnstop.BackColor = System.Drawing.SystemColors.HighlightText;
             this.btnstop.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.btnstop.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Red;
-            this.btnstop.Location = new System.Drawing.Point(123, 205);
-            this.btnstop.Margin = new System.Windows.Forms.Padding(4);
+            this.btnstop.Location = new System.Drawing.Point(15, 179);
             this.btnstop.Name = "btnstop";
-            this.btnstop.Size = new System.Drawing.Size(103, 30);
+            this.btnstop.Size = new System.Drawing.Size(93, 25);
             this.btnstop.TabIndex = 1;
             this.btnstop.Text = "Stop";
             this.btnstop.UseVisualStyleBackColor = false;
@@ -79,92 +77,95 @@
             // 
             // txtip
             // 
+            this.txtip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtip.BackColor = System.Drawing.Color.LightYellow;
-            this.txtip.Location = new System.Drawing.Point(135, 44);
-            this.txtip.Margin = new System.Windows.Forms.Padding(4);
+            this.txtip.Location = new System.Drawing.Point(114, 36);
             this.txtip.Name = "txtip";
-            this.txtip.Size = new System.Drawing.Size(216, 22);
+            this.txtip.Size = new System.Drawing.Size(163, 20);
             this.txtip.TabIndex = 3;
             this.txtip.Enter += new System.EventHandler(this.txtip_Enter);
             // 
             // txtPort
             // 
             this.txtPort.BackColor = System.Drawing.Color.LightYellow;
-            this.txtPort.Location = new System.Drawing.Point(135, 89);
-            this.txtPort.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPort.Location = new System.Drawing.Point(114, 72);
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(103, 22);
+            this.txtPort.Size = new System.Drawing.Size(163, 20);
             this.txtPort.TabIndex = 4;
-            this.txtPort.Enter += new System.EventHandler(this.btnstart_Click);
+            
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Lavender;
-            this.label1.Location = new System.Drawing.Point(16, 92);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 16);
+            this.label1.Size = new System.Drawing.Size(96, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "Numero de port ";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Lavender;
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(16, 44);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 16);
+            this.label2.Size = new System.Drawing.Size(96, 20);
             this.label2.TabIndex = 6;
             this.label2.Text = "Ip Serveur APP";
             // 
             // txtSend
             // 
+            this.txtSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSend.BackColor = System.Drawing.SystemColors.Info;
-            this.txtSend.Location = new System.Drawing.Point(478, 68);
-            this.txtSend.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSend.Location = new System.Drawing.Point(358, 55);
             this.txtSend.Name = "txtSend";
-            this.txtSend.Size = new System.Drawing.Size(643, 239);
-            this.txtSend.TabIndex = 7;
+            this.txtSend.Size = new System.Drawing.Size(483, 195);
+            this.txtSend.TabIndex = 10;
             this.txtSend.Text = "";
             // 
             // txtResponseTime
             // 
             this.txtResponseTime.BackColor = System.Drawing.Color.LightYellow;
-            this.txtResponseTime.Location = new System.Drawing.Point(194, 129);
+            this.txtResponseTime.Location = new System.Drawing.Point(114, 107);
+            this.txtResponseTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtResponseTime.Name = "txtResponseTime";
-            this.txtResponseTime.Size = new System.Drawing.Size(95, 22);
+            this.txtResponseTime.Size = new System.Drawing.Size(163, 20);
             this.txtResponseTime.TabIndex = 8;
             // 
             // tmpinter
             // 
-            this.tmpinter.AutoSize = true;
             this.tmpinter.BackColor = System.Drawing.Color.Lavender;
             this.tmpinter.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tmpinter.Location = new System.Drawing.Point(16, 132);
+            this.tmpinter.Location = new System.Drawing.Point(12, 107);
+            this.tmpinter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.tmpinter.Name = "tmpinter";
-            this.tmpinter.Size = new System.Drawing.Size(170, 16);
+            this.tmpinter.Size = new System.Drawing.Size(96, 20);
             this.tmpinter.TabIndex = 9;
-            this.tmpinter.Text = "temps de reponce interface";
+            this.tmpinter.Text = "Answer time";
             // 
             // txtReceive
             // 
+            this.txtReceive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtReceive.BackColor = System.Drawing.SystemColors.Info;
-            this.txtReceive.Location = new System.Drawing.Point(478, 338);
-            this.txtReceive.Margin = new System.Windows.Forms.Padding(4);
+            this.txtReceive.Location = new System.Drawing.Point(358, 275);
             this.txtReceive.Name = "txtReceive";
-            this.txtReceive.Size = new System.Drawing.Size(643, 273);
+            this.txtReceive.Size = new System.Drawing.Size(483, 223);
             this.txtReceive.TabIndex = 10;
             this.txtReceive.Text = "";
             // 
             // txtlog
             // 
+            this.txtlog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.txtlog.BackColor = System.Drawing.SystemColors.Info;
-            this.txtlog.Location = new System.Drawing.Point(19, 270);
+            this.txtlog.Location = new System.Drawing.Point(14, 219);
+            this.txtlog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtlog.Name = "txtlog";
-            this.txtlog.Size = new System.Drawing.Size(410, 341);
+            this.txtlog.Size = new System.Drawing.Size(308, 278);
             this.txtlog.TabIndex = 11;
             this.txtlog.Text = "";
             // 
@@ -174,7 +175,7 @@
             this.logToolStripMenuItem,
             this.debugToolStripMenuItem});
             this.optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            this.optionToolStripMenuItem.Size = new System.Drawing.Size(69, 24);
+            this.optionToolStripMenuItem.Size = new System.Drawing.Size(69, 26);
             this.optionToolStripMenuItem.Text = "Option";
             // 
             // logToolStripMenuItem
@@ -205,7 +206,7 @@
             this.commissioningToolStripMenuItem,
             this.lectureToolStripMenuItem});
             this.modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-            this.modeToolStripMenuItem.Size = new System.Drawing.Size(62, 24);
+            this.modeToolStripMenuItem.Size = new System.Drawing.Size(62, 26);
             this.modeToolStripMenuItem.Text = "Mode";
             // 
             // commissioningToolStripMenuItem
@@ -222,23 +223,24 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionToolStripMenuItem,
             this.modeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1164, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(873, 28);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1164, 669);
+            this.ClientSize = new System.Drawing.Size(873, 544);
             this.Controls.Add(this.txtlog);
             this.Controls.Add(this.txtReceive);
             this.Controls.Add(this.tmpinter);
@@ -252,7 +254,6 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
