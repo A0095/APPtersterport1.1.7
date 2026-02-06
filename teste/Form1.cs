@@ -22,8 +22,6 @@ namespace teste
         private static readonly HttpClient _http = new HttpClient();
         private bool DEBUG_MODE = false;
 
-
-
         // ===============================
         // HISTORIQUE DES TESTS
         // ===============================
@@ -56,30 +54,6 @@ namespace teste
             AppLogger.OnLog += AddLog;
             AppLogger.OnLog += TestLog;// a suppr
             AppLogger.Info("TEST AUTOSTORE : message au démarrage");
-        }
-        //a supr
-        private void TestLog(string message)
-        {
-            if (txtReceive.InvokeRequired)
-            {
-                txtReceive.Invoke(new Action(() => TestLog(message)));
-                return;
-            }
-
-            txtReceive.AppendText(message + Environment.NewLine);
-        }
-
-
-        //partage des log 
-        private void AddLog(string message)
-        {
-            if (txtlog.InvokeRequired)
-            {
-                txtlog.Invoke(new Action(() => AddLog(message)));
-                return;
-            }
-
-            txtlog.AppendText(message + Environment.NewLine);
         }
 
 
@@ -449,28 +423,28 @@ namespace teste
         // ===============================
         // START / STOP
         // ===============================
-       private async void btnstart_Click(object sender, EventArgs e)
-{
-    if (DEBUG_MODE)
-    {
-        SimulateDebugProcess();
-        return;
-    }
+        private async void btnstart_Click(object sender, EventArgs e)
+        {
+            if (DEBUG_MODE)
+            {
+                SimulateDebugProcess();
+                return;
+            }
 
-    // Si le port est invalide, on force 0 (ou ton port par défaut)
-    int.TryParse(txtPort.Text, out int port);
+            // Si le port est invalide, on force 0 (ou ton port par défaut)
+            int.TryParse(txtPort.Text, out int port);
 
-    try
-    {
-        await RunV1_TaskGroupTestAsync(txtip.Text.Trim(), port);
+            try
+            {
+                await RunV1_TaskGroupTestAsync(txtip.Text.Trim(), port);
 
-        LogInfo("VALIDATION : Trame envoyée et task terminée");
-    }
-    catch (Exception ex)
-    {
-        LogError("ERREUR : Trame non envoyée - " + ex.Message);
-    }
-}
+                LogInfo("VALIDATION : Trame envoyée et task terminée");
+            }
+            catch (Exception ex)
+            {
+                LogError("ERREUR : Trame non envoyée - " + ex.Message);
+            }
+        }
 
 
         private void btnstop_Click(object sender, EventArgs e)
