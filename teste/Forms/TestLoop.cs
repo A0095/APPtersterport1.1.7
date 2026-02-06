@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Drawing;
-using System.Linq;
-using System.IO;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using teste.Forms;
+using teste.Logger;
 
-namespace teste
+namespace teste.forms
 {
-    public partial class Form1 : Form
+    public partial class TestLoop : Form
     {
         // ===============================
         // CHAMPS GLOBAUX
         // ===============================
-        private CancellationTokenSource _cts;
+        private CancellationTokenSource _cts = new CancellationTokenSource();
         private static readonly HttpClient _http = new HttpClient();
-        private bool DEBUG_MODE = false;
 
         // ===============================
         // HISTORIQUE DES TESTS
@@ -40,10 +41,11 @@ namespace teste
         // ===============================
         // CONSTRUCTEUR
         // ===============================
-        public Form1()
+        public TestLoop()
         {
             InitializeComponent();
 
+            ConsoleLogger.Initialize(txtlog); 
             this.AcceptButton = null;
             btnstop.Enabled = false;
 
@@ -51,9 +53,23 @@ namespace teste
 
             _http.Timeout = TimeSpan.FromSeconds(20);
 
-            AppLogger.OnLog += AddLog;
-            AppLogger.OnLog += TestLog;// a suppr
-            AppLogger.Info("TEST AUTOSTORE : message au démarrage");
+            _cts = new CancellationTokenSource();
+
+            Log.OnLog += AddLog;
+            Log.Info("TEST AUTOSTORE : message au démarrage");
+        }
+
+
+        //partage des log 
+        private void AddLog(string message)
+        {
+            if (txtlog.InvokeRequired)
+            {
+                txtlog.Invoke(new Action(() => AddLog(message)));
+                return;
+            }
+
+            txtlog.AppendText(message + Environment.NewLine);
         }
 
 
@@ -93,7 +109,7 @@ namespace teste
 
             await PostXmlAsync(endpoint, xml, CancellationToken.None);
 
-            LogInfo($"TASKGROUP CRÉÉE : ID={taskGroupId} ({numberOfTasks} tâches)");
+            ConsoleLogger.Info($"TASKGROUP CRÉÉE : ID={taskGroupId} ({numberOfTasks} tâches)");
 
             return taskGroupId;
         }
@@ -104,7 +120,7 @@ namespace teste
 
             try
             {
-                LogInfo("=== TEST V1 AVEC TASKGROUP ===");
+                ConsoleLogger.Info("=== TEST V1 AVEC TASKGROUP ===");
 
                 // 1️⃣ Création taskgroup (10 tâches)
                 int taskGroupId = await CreateTaskGroupAsync(endpoint, 10);
@@ -115,12 +131,12 @@ namespace teste
                         $"<port_id>{portId}</port_id>"),
                     CancellationToken.None);
 
-                LogInfo("OPENPORT OK");
+                ConsoleLogger.Info("OPENPORT OK");
 
                 // 3️⃣ Consommation des 10 tâches par le port
                 for (int i = 1; i <= 10; i++)
                 {
-                    LogInfo($"OPENBIN (task {i}/10)");
+                    ConsoleLogger.Info($"OPENBIN (task {i}/10)");
 
                     string openResp = await PostXmlAsync(endpoint,
                         BuildXml("openbin",
@@ -160,7 +176,7 @@ namespace teste
                             $"<bin_id>{binId}</bin_id>"),
                         CancellationToken.None);
 
-                    LogInfo($"TASK {i} TERMINÉE");
+                    ConsoleLogger.Info($"TASK {i} TERMINÉE");
                 }
 
                 // 4️⃣ CLOSEPORT
@@ -169,54 +185,13 @@ namespace teste
                         $"<port_id>{portId}</port_id>"),
                     CancellationToken.None);
 
-                LogInfo("CLOSEPORT OK");
-                LogInfo("=== TEST V1 TERMINÉ ===");
+                ConsoleLogger.Info("CLOSEPORT OK");
+                ConsoleLogger.Info("=== TEST V1 TERMINÉ ===");
             }
             catch (Exception ex)
             {
-                LogError("ERREUR V1 : " + ex.Message);
+                ConsoleLogger.Error("ERREUR V1 : " + ex.Message);
             }
-        }
-
-
-        // ===============================
-        // DEBUG MODE (MENU)
-        // ===============================
-        private void btnDebug_Click(object sender, EventArgs e)
-        {
-            DEBUG_MODE = !DEBUG_MODE;
-
-            if (DEBUG_MODE)
-            {
-                debugToolStripMenuItem.Text = "DEBUG : ON";
-                LogInfo("DEBUG MODE ACTIVÉ (simulation)");
-            }
-            else
-            {
-                debugToolStripMenuItem.Text = "DEBUG : OFF";
-                LogInfo("DEBUG MODE DÉSACTIVÉ (mode réel)");
-            }
-        }
-
-        // ===============================
-        // LOGS (NOIR / ROUGE)
-        // ===============================
-        private void LogInfo(string msg) => AppendLog(msg, Color.Black);
-        private void LogError(string msg) => AppendLog(msg, Color.Red);
-
-        private void AppendLog(string msg, Color color)
-        {
-            if (txtlog.InvokeRequired)
-            {
-                txtlog.BeginInvoke(new Action(() => AppendLog(msg, color)));
-                return;
-            }
-
-            txtlog.SelectionStart = txtlog.TextLength;
-            txtlog.SelectionLength = 0;
-            txtlog.SelectionColor = color;
-            txtlog.AppendText($"[{DateTime.Now:HH:mm:ss}] {msg}{Environment.NewLine}");
-            txtlog.SelectionColor = txtlog.ForeColor;
         }
 
         // ===============================
@@ -323,19 +298,13 @@ namespace teste
 
             if (string.IsNullOrEmpty(server))
             {
-                LogError("IP / serveur non renseigné");
-                return;
-            }
-
-            if (DEBUG_MODE)
-            {
-                SimulateDebugPing(server, portId);
+                ConsoleLogger.Error("IP / serveur non renseigné");
                 return;
             }
 
             string endpoint = $"http://{server}:44000/api/v2/task";
-            LogInfo("TEST CONNEXION AUTOSTORE");
-            LogInfo("Endpoint : " + endpoint);
+            ConsoleLogger.Info("TEST CONNEXION AUTOSTORE");
+            ConsoleLogger.Info("Endpoint : " + endpoint);
 
             Stopwatch sw = Stopwatch.StartNew();
 
@@ -349,8 +318,8 @@ namespace teste
                     double sec = sw.Elapsed.TotalSeconds;
                     txtResponseTime.Text = sec.ToString("0.00") + " s";
 
-                    LogInfo("Connexion OK");
-                    LogInfo("HTTP " + (int)resp.StatusCode);
+                    ConsoleLogger.Info("Connexion OK");
+                    ConsoleLogger.Info("HTTP " + (int)resp.StatusCode);
 
                     _portTestHistory.Add(new PortTestResult
                     {
@@ -367,7 +336,7 @@ namespace teste
             {
                 sw.Stop();
                 txtResponseTime.Text = "Erreur";
-                LogError(ex.Message);
+                ConsoleLogger.Error(ex.Message);
 
                 _portTestHistory.Add(new PortTestResult
                 {
@@ -382,69 +351,25 @@ namespace teste
         }
 
         // ===============================
-        // DEBUG SIMULATIONS
-        // ===============================
-        private void SimulateDebugPing(string server, int portId)
-        {
-            double fakeTime = 0.35;
-            txtResponseTime.Text = fakeTime.ToString("0.00") + " s";
-
-            LogInfo("[DEBUG] Ping simulé OK");
-
-            _portTestHistory.Add(new PortTestResult
-            {
-                DateTest = DateTime.Now,
-                ServerIp = server,
-                PortId = portId,
-                Success = true,
-                ResponseTimeSeconds = fakeTime,
-                Message = "DEBUG MODE"
-            });
-        }
-
-        private void SimulateDebugProcess()
-        {
-            LogInfo("[DEBUG] Process AutoStore simulé");
-
-            for (int i = 1; i <= 10; i++)
-                LogInfo("[DEBUG] Cycle " + i + " OK");
-
-            _portTestHistory.Add(new PortTestResult
-            {
-                DateTest = DateTime.Now,
-                ServerIp = txtip.Text,
-                PortId = int.TryParse(txtPort.Text, out int p) ? p : -1,
-                Success = true,
-                ResponseTimeSeconds = 3.5,
-                Message = "DEBUG Process"
-            });
-        }
-
-        // ===============================
         // START / STOP
         // ===============================
-        private async void btnstart_Click(object sender, EventArgs e)
+    private async void btnstart_Click(object sender, EventArgs e)
+    {
+
+        // Si le port est invalide, on force 0 (ou ton port par défaut)
+        int.TryParse(txtPort.Text, out int port);
+
+        try
         {
-            if (DEBUG_MODE)
-            {
-                SimulateDebugProcess();
-                return;
-            }
+            await RunV1_TaskGroupTestAsync(txtip.Text.Trim(), port);
 
-            // Si le port est invalide, on force 0 (ou ton port par défaut)
-            int.TryParse(txtPort.Text, out int port);
-
-            try
-            {
-                await RunV1_TaskGroupTestAsync(txtip.Text.Trim(), port);
-
-                LogInfo("VALIDATION : Trame envoyée et task terminée");
-            }
-            catch (Exception ex)
-            {
-                LogError("ERREUR : Trame non envoyée - " + ex.Message);
-            }
+                ConsoleLogger.Info("VALIDATION : Trame envoyée et task terminée");
         }
+        catch (Exception ex)
+        {
+                ConsoleLogger.Error("ERREUR : Trame non envoyée - " + ex.Message);
+        }
+    }
 
 
         private void btnstop_Click(object sender, EventArgs e)
@@ -454,7 +379,7 @@ namespace teste
         }
 
         // ===============================
-        // RAP²&PORT TXT
+        // RAPORT LOG
         // ===============================
         private string BuildReportText()
         {
@@ -487,15 +412,15 @@ namespace teste
         private void GenerateTxtReport(string filePath)
         {
             File.WriteAllText(filePath, BuildReportText(), Encoding.UTF8);
-            LogInfo("Rapport TXT généré");
-            LogInfo("Chemin : " + filePath);
+            ConsoleLogger.Info("Rapport TXT généré");
+            ConsoleLogger.Info("Chemin : " + filePath);
         }
 
         private void generateReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_portTestHistory.Count == 0)
             {
-                MessageBox.Show("Aucun test enregistré");
+                informationLoggin();
                 return;
             }
 
@@ -510,6 +435,23 @@ namespace teste
                 if (sfd.ShowDialog() == DialogResult.OK)
                     GenerateTxtReport(sfd.FileName);
             }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Log.OnLog -= AddLog;
+            base.OnFormClosed(e);
+        }
+
+        private bool informationLoggin()
+        {
+            string title = "Export Log";
+            string message = "Aucun test enregistré";
+
+
+            DialogResult res = ASMessageBox.Show(
+                message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return (res == DialogResult.OK);
         }
     }
 }

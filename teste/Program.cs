@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using teste.forms;
+using teste.Forms;
 
 namespace teste
 {
@@ -22,7 +24,7 @@ namespace teste
             {
                 if (login.ShowDialog() == DialogResult.OK)
                 {
-                    Application.Run(new Form1()); // Commissioning
+                    Application.Run(new TestLoop()); // Commissioning
                 }
             }
         }

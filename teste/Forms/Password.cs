@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace teste
+namespace teste.Forms
 {
-    public partial class UserControl1 : UserControl
+    public partial class Password : Form
     {
-        public UserControl1()
+        public Password()
         {
             InitializeComponent();
         }

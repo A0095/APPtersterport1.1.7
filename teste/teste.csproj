@@ -91,7 +91,7 @@
       <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.0\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -138,33 +138,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\AsMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\AsMessageBox.Designer.cs">
+      <DependentUpon>AsMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormLogin.cs">
+    <Compile Include="Forms\MessageBoxButtonBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\MessageBoxButtonBar.Designer.cs">
+      <DependentUpon>MessageBoxButtonBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Password.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormLogin.Designer.cs">
+    <Compile Include="Forms\Password.Designer.cs">
+      <DependentUpon>Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logger\Logger.cs" />
+    <Compile Include="Logger\LogLevel.cs" />
+    <Compile Include="LogPublisgerConenction.cs" />
+    <Compile Include="Forms\TestLoop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestLoop.Designer.cs">
+      <DependentUpon>TestLoop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\logPublisher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\logPublisher.Designer.cs">
+      <DependentUpon>logPublisher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\AutoTranslationManager.cs" />
+    <Compile Include="Manager\LanguageManager.cs" />
     <Compile Include="PortTestEntry.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControl1.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="ressource\Ressources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ressources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AsMessageBox.resx">
+      <DependentUpon>AsMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormLogin.resx">
+    <EmbeddedResource Include="Forms\MessageBoxButtonBar.resx">
+      <DependentUpon>MessageBoxButtonBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestLoop.resx">
+      <DependentUpon>TestLoop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\logPublisher.resx">
+      <DependentUpon>logPublisher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -174,7 +210,15 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ressource\Ressources.de.resx" />
+    <EmbeddedResource Include="ressource\Ressources.en.resx" />
+    <EmbeddedResource Include="ressource\Ressources.es.resx" />
+    <EmbeddedResource Include="ressource\Ressources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Ressources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -188,6 +232,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ressource\ASCAI.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ressource\ASL.jpg" />
+    <EmbeddedResource Include="ressource\dialog-error.png" />
+    <EmbeddedResource Include="ressource\dialog-information.png" />
+    <EmbeddedResource Include="ressource\dialog-ok.png" />
+    <EmbeddedResource Include="ressource\dialog-password.png" />
+    <EmbeddedResource Include="ressource\dialog-question.png" />
+    <EmbeddedResource Include="ressource\dialog-warning.png" />
+    <EmbeddedResource Include="ressource\flagDE.gif" />
+    <EmbeddedResource Include="ressource\flagEN.gif" />
+    <EmbeddedResource Include="ressource\flagES.gif" />
+    <EmbeddedResource Include="ressource\flagFR.gif" />
+    <EmbeddedResource Include="ressource\Dematic.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
